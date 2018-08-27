@@ -25,7 +25,7 @@
           <div
             v-for="nav in navList"
             :key="nav.page_id"
-            class="nav-item swiper-slide"
+            class="nav-item swiper-slide nav_active"
           >
             <span>{{nav.name}}</span>
           </div>
@@ -158,6 +158,13 @@ export default{
   display: inline-block;
   line-height: 32px;
   border-bottom: 2px solid rgba(237, 91, 0, 0);
+  color:rgba(116,116,116);
+  border-color:rgb(242,242,242);
+}
+.nav .nav-item.nav_active span {
+  /* 焦点状态 */
+  color:rgba(237,91,0);
+  border-color:rgb(237,91,0);
 }
 .page-wrap {
   position: relative;
