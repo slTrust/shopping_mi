@@ -21,32 +21,11 @@
         </div>
       </div>
       <div class="nav">
-        <div class="nav-item">
-          <span style="color: rgb(237, 91, 0); border-color: rgb(237, 91, 0);">推荐</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">手机</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">智能</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">电视</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">电脑</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">双摄</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">全面屏</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">生活周边</span>
-        </div>
-        <div class="nav-item">
-          <span style="color: rgb(116, 116, 116); border-color: rgb(242, 242, 242);">盒子</span>
+        <div
+          v-for="nav in navList"
+          class="nav-item"
+        >
+          <span>{{nav.name}}</span>
         </div>
       </div>
     </header>
