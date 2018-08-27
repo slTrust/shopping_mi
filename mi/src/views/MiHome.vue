@@ -23,9 +23,11 @@
       <div class="nav swiper-container">
         <div class="swiper-wrapper">
           <div
-            v-for="nav in navList"
+            v-for="(nav,index) in navList"
             :key="nav.page_id"
-            class="nav-item swiper-slide nav_active"
+            class="nav-item swiper-slide"
+            :class="{'nav_active':index==curIndex}"
+            @click="changeIndex(index)"
           >
             <span>{{nav.name}}</span>
           </div>
@@ -47,7 +49,9 @@ export default{
     return {
       msg: 'hello',
       navList: null,
-      slidePerview: 6
+      slidesPerView: 6,
+      curIndex: 0, // 默认nav的焦点下标
+      homeSwiper: null
     }
   },
   beforeCreate () {
@@ -67,12 +71,21 @@ export default{
         this.navList = res.data.list
         // 动态数据赋值后，dom可操作 要通过nextTick
         this.$nextTick(() => {
-          new Swiper('.swiper-container', {
-            slidePerview: this.slidePerview,
+          this.homeSwiper = new Swiper('.swiper-container', {
+            slidesPerView: this.slidesPerView,
             freeMode: true
           })
         })
       })
+    },
+    changeIndex (index) {
+      this.curIndex = index
+      let toIndex = 0
+      if (index > this.slidesPerView / 2) {
+        toIndex = index - this.slidesPerView / 2
+      }
+      // 设置焦点的nav居中
+      this.homeSwiper.slideTo(toIndex, 1000, false)
     }
   }
 }
