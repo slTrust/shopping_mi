@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script>
+        let url = 'http://rap2api.taobao.org/app/mock/83331/example/1535335726122'
+        axios.post(url).then(res=>{
+            console.log("响应数据:",res)
+        }).catch(err=>{
+
+        })
+    </script>
+</body>
+</html>

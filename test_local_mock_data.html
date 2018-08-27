@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/Mock.js/1.0.1-beta3/mock-min.js"></script>
+    <script>
+        let url = 'http://rap2api.taobao.org/app/mock/83331/example/1535335726122'
+        url = 'xxx'
+        axios.post(url).then(res => {
+            console.log("响应数据:", res)
+        }).catch(err => {
+            let data = Mock.mock({
+                "string|1-10": "★",
+                "number|1-100": 1,
+                "boolean|1-2": true,
+                "regexp": "/[a-z][A-Z][0-9]/",
+                "function": "() => Math.random()",
+                "array|1-10": [
+                    {
+                        "foo|+1": 5,
+                        "bar|1-10": "★"
+                    }
+                ],
+                "items": [
+                    1,
+                    true,
+                    "hello",
+                    "/\\w{10}/"
+                ],
+                "object": {
+                    "foo|+1": 2,
+                    "bar|1-10": "★"
+                },
+                "placeholder": "@title",
+                "image": "@img('200x100', '#FF6600')"
+            })
+            console.log(data)
+        })
+    </script>
+</body>
+
+</html>
