@@ -1,13 +1,13 @@
-import Home from './Home.vue'
 import MiLogin from './MiLogin.vue'
+import MiHome from './MiHome.vue'
 
 // 路由的优化
 
 export default [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
-    component: Home
+    component: MiHome
   },
   {
     path: '/about',
