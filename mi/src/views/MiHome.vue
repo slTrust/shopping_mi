@@ -58,6 +58,32 @@
   </div>
 </div>
 </template>
+<script>
+export default{
+  data () {
+    return {
+      msg: 'hello',
+      navList: null
+    }
+  },
+  beforeCreate () {
+    console.log('beforeCreate:', this.msg)
+  },
+  created () {
+    console.log('created:', this.getNavList())
+  },
+  mounted () {
+    console.log('mounted:')
+  },
+  methods: {
+    getNavList () {
+      this.$fetch('navList').then(res => {
+        this.navList = res.data.list
+      })
+    }
+  }
+}
+</script>
 
 <style scoped>
 .app-view {
