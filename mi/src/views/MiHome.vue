@@ -142,7 +142,8 @@ export default{
   font-size: 24px;
 }
 .nav {
-  overflow-x: auto;
+  /* 拉动nav不反弹问题 */
+  /* overflow-x: auto; */
   background: #f2f2f2;
   font-size: 14px;
   white-space: nowrap;
@@ -151,6 +152,7 @@ export default{
 .nav .nav-item {
   display: inline-block;
   padding: 0 14px;
+  width:auto !important;
 }
 .nav .nav-item span {
   display: inline-block;
