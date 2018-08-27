@@ -44,6 +44,9 @@
 </template>
 <script>
 import Swiper from 'swiper'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+NProgress.configure({showSpinner: false})
 export default{
   data () {
     return {
@@ -86,6 +89,16 @@ export default{
       }
       // 设置焦点的nav居中
       this.homeSwiper.slideTo(toIndex, 1000, false)
+      // 调用nav切换的数据获取
+      this.getHomePage()
+    },
+    getHomePage () {
+      NProgress.start()
+      this.$fetch('homePage', {
+        page_id: this.navList[this.curIndex].page_id
+      }).then(res => {
+        NProgress.done()
+      })
     }
   }
 }
@@ -94,7 +107,7 @@ export default{
 <style scoped>
 .app-view {
   position: absolute;
-  z-index: 999;
+  z-index: 990;
   top: 0;
   right: 0;
   bottom: 0;
@@ -194,5 +207,13 @@ export default{
   height: 800px;
   line-height: 800px;
   font-size: 72px;
+}
+</style>
+<style>
+#nprogress .bar{
+  background-color:rgba(237,91,0,0.5);
+}
+#nprogress .peg{
+  box-shadow:0 0 10px rgba(237,91,0,0.5), 0 0 5px (237,91,0,0.5);
 }
 </style>
