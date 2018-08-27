@@ -7,7 +7,7 @@
     <div>
       <!-- 输入框 -->
       <label class="login_user">
-        <div class="country_list">
+        <div v-show="isSmsLogin" class="country_list">
           <div class="countrycode_selector" >
             <span class="country_code">
               <tt class="countrycode-value">+86</tt>
@@ -15,26 +15,27 @@
             </span>
           </div>
         </div>
-        <input class="item_account" autocomplete="off" type="text"  placeholder="邮箱/手机号码/小米ID">
+        <input class="item_account" autocomplete="off" type="text"  :placeholder="placeholder" v-model="username" @input="clearErr">
       </label>
-      <label class="pwd_panel">
-        <input class="item_account" type="password" placeholder="密码" autocomplete="off">
-        <i class="eye pwd-eye">eye</i>
+      <label v-show="!isSmsLogin" class="pwd_panel">
+        <input class="item_account" :type="pwdType" placeholder="密码" autocomplete="off" v-model="pwd">
+        <i class="iconfont" :class="{'icon-web__bukejian':isOpen,'icon--yichukejian':!isOpen}" @click="toggleOpen"></i>
       </label>
-      <label class="pwd_panel">
-        <input class="item_account" type="number" placeholder="短信验证码" autocomplete="off">
-        <a href="javascript:;" class="sms_code">{{codeMsg}}</a>
+      <label v-show="isSmsLogin" class="pwd_panel">
+        <input class="item_account" type="number" placeholder="短信验证码" autocomplete="off" v-model="code">
+        <a href="javascript:;" class="sms_code" :style="codeStyle" @click="getCode">{{codeMsg}}</a>
       </label>
       <!-- 错误信息 -->
-      <div class="err_tip">
-        <em class="icon_error">err</em>
-        <span class="error-con">请输入密码</span>
+      <div v-show="errMsg" class="err_tip">
+        <!-- <em class="icon_error">err</em> -->
+         <i class="icon_error iconfont icon-error"></i>
+        <span class="error-con">{{errMsg}}</span>
       </div>
       <div class="btns_bg">
-        <input class="btnadpt" type="button" value="登录">
+        <input class="btnadpt" type="button" :value="mainBtn" @click="submit">
       </div>
       <div class="other_panel">
-        <a href="javascript:;" class="btnadpt btn_gray" v-on:click="changeBtn">手机短信登录/注册</a>
+        <a href="javascript:;" class="btnadpt btn_gray" @click="changeBtn">{{subBtn}}</a>
         <div class="reverse">
           <div class="n_links_area">
             <a class="outer-link">立即注册</a>
@@ -65,14 +66,94 @@
 单文件顶级元素的顺序 template script style
 实例的顺序 data, computed, methods
 */
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      codeMsg: '获取验证码'
+      isSmsLogin: true, // 通过它来识别默认登录
+      codeMsg: '获取验证码',
+      isOpen: true, // 密码是否可见
+      countdown: 60, // 倒计时
+      timer: null,
+      errMsg: '',
+      username: '',
+      pwd: '',
+      code: ''
+    }
+  },
+  computed: {
+    mainBtn () {
+      return this.isSmsLogin ? '立即登录/注册' : '登录'
+    },
+    subBtn () {
+      return this.isSmsLogin ? '用户名密码登录' : '手机短信登录/注册'
+    },
+    placeholder () {
+      return this.isSmsLogin ? '手机号码' : '邮箱/手机号码/小米ID'
+    },
+    pwdType () {
+      return this.isOpen ? 'text' : 'password'
+    },
+    codeStyle () {
+      return this.countdown === 60 ? {
+        color: '#2ea5e5',
+        cursor: 'pointer'
+      } : {
+        color: '#999',
+        cursor: 'default'
+      }
     }
   },
   methods: {
-
+    changeBtn () {
+      this.isSmsLogin = !this.isSmsLogin
+    },
+    toggleOpen () {
+      this.isOpen = !this.isOpen
+    },
+    getCode () {
+      if (!this.username) {
+        this.errMsg = '请输入手机号'
+        return
+      }
+      if (this.countdown !== 60) return
+      let url = 'http://rap2api.taobao.org/app/mock/83365/api/getCode'
+      axios.post(url).then(res => {
+        console.log(res)
+        this.timer = setInterval(() => {
+          this.codeMsg = `重新发送${this.countdown}`
+          this.countdown--
+          if (this.countdown === 0) {
+            clearInterval(this.timer)
+            this.timer = null
+            this.countdown = 60
+            this.codeMsg = '获取验证码'
+          }
+        }, 1000)
+      })
+    },
+    clearErr () {
+      this.errMsg = ''
+    },
+    submit () {
+      let data = {
+        username: this.username
+      }
+      if (this.isSmsLogin) {
+        data.code = this.code
+      } else {
+        data.pwd = this.pwd
+      }
+      let url = 'http://rap2api.taobao.org/app/mock/83365/api/login'
+      axios.post(url, data).then(res => {
+        let status = res.data.status
+        if (status === 200) {
+          // todo 跳转到登录来源
+          console.log('跳转到登录来源')
+        }
+      })
+    }
   }
 }
 </script>
