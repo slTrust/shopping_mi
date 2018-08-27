@@ -48,16 +48,32 @@ export default{
   beforeCreate () {
     console.log('beforeCreate:', this.msg)
   },
+  // 异步数据获取和赋值给data
   created () {
     console.log('created:', this.getNavList())
+    // 对动态元素  获取是空的
+    // console.log(document.querySelectorAll('.nav-item'))
+    // 对静态元素 获取是空的 因为没挂载
+    console.log(document.querySelectorAll('.app-header-title'))
   },
+  // 静态dom已挂载
   mounted () {
     console.log('mounted:')
+    // 对动态元素  获取是空的
+    // console.log(document.querySelectorAll('.nav-item'))
+    // 对静态元素 获取不是空的 因为挂载了
+    console.log(document.querySelectorAll('.app-header-title'))
+    // 只有通过nextTick的时候 元素才能获取
   },
   methods: {
     getNavList () {
       this.$fetch('navList').then(res => {
         this.navList = res.data.list
+        // 动态数据赋值后，dom可操作 要通过nextTick
+        // 只有通过nextTick的时候 元素才能获取
+        this.$nextTick(() => {
+          console.log(document.querySelectorAll('.nav-item'))
+        })
       })
     }
   }
