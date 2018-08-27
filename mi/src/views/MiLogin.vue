@@ -66,9 +66,7 @@
 单文件顶级元素的顺序 template script style
 实例的顺序 data, computed, methods
 */
-import axios from 'axios'
 import md5 from 'blueimp-md5'
-import url from '@/api'
 
 export default {
   data () {
@@ -120,7 +118,7 @@ export default {
         return
       }
       if (this.countdown !== 60) return
-      axios.post(url.getCode).then(res => {
+      this.$fetch('getCode').then(res => {
         console.log(res)
         this.timer = setInterval(() => {
           this.codeMsg = `重新发送${this.countdown}`
@@ -146,7 +144,7 @@ export default {
       } else {
         data.pwd = md5(this.pwd)
       }
-      axios.post(url.login, data).then(res => {
+      this.$fetch('login', data).then(res => {
         let status = res.data.status
         if (status === 200) {
           // todo 跳转到登录来源
