@@ -68,6 +68,7 @@
 */
 import axios from 'axios'
 import md5 from 'blueimp-md5'
+import url from '@/api'
 
 export default {
   data () {
@@ -119,8 +120,7 @@ export default {
         return
       }
       if (this.countdown !== 60) return
-      let url = 'http://rap2api.taobao.org/app/mock/83365/api/getCode'
-      axios.post(url).then(res => {
+      axios.post(url.getCode).then(res => {
         console.log(res)
         this.timer = setInterval(() => {
           this.codeMsg = `重新发送${this.countdown}`
@@ -146,8 +146,7 @@ export default {
       } else {
         data.pwd = md5(this.pwd)
       }
-      let url = 'http://rap2api.taobao.org/app/mock/83365/api/login'
-      axios.post(url, data).then(res => {
+      axios.post(url.login, data).then(res => {
         let status = res.data.status
         if (status === 200) {
           // todo 跳转到登录来源
