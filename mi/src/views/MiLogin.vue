@@ -67,6 +67,7 @@
 实例的顺序 data, computed, methods
 */
 import axios from 'axios'
+import md5 from 'blueimp-md5'
 
 export default {
   data () {
@@ -143,7 +144,7 @@ export default {
       if (this.isSmsLogin) {
         data.code = this.code
       } else {
-        data.pwd = this.pwd
+        data.pwd = md5(this.pwd)
       }
       let url = 'http://rap2api.taobao.org/app/mock/83365/api/login'
       axios.post(url, data).then(res => {
