@@ -35,8 +35,12 @@
       </div>
     </header>
     <div class="page-wrap">
-      <div class="bodys">
-        bodys
+      <div 
+        v-for="(nav,index) in navList"
+        :key="nav.page_id"
+        v-show="index==curIndex"
+        class="bodys">
+        {{nav.name}}
       </div>
     </div>
   </div>
@@ -64,6 +68,14 @@ export default{
   created () {
     this.getNavList()
   },
+  watch: {
+    navList: {
+      deep: true,
+      handler (val, oldVal) {
+        console.log(val)
+      }
+    }
+  },
   // 静态dom已挂载
   mounted () {
 
@@ -71,7 +83,12 @@ export default{
   methods: {
     getNavList () {
       this.$fetch('navList').then(res => {
-        this.navList = res.data.list
+        let list = res.data.list
+        list.forEach(item => {
+          item.hasData = false
+        })
+        this.navList = list
+        this.getHomePage()
         // 动态数据赋值后，dom可操作 要通过nextTick
         this.$nextTick(() => {
           this.homeSwiper = new Swiper('.swiper-container', {
@@ -90,13 +107,14 @@ export default{
       // 设置焦点的nav居中
       this.homeSwiper.slideTo(toIndex, 1000, false)
       // 调用nav切换的数据获取
-      this.getHomePage()
+      !this.navList[this.curIndex].hasData && this.getHomePage()
     },
     getHomePage () {
       NProgress.start()
       this.$fetch('homePage', {
         page_id: this.navList[this.curIndex].page_id
       }).then(res => {
+        this.navList[this.curIndex].hasData = true
         NProgress.done()
       })
     }
