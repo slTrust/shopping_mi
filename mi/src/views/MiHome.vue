@@ -34,15 +34,16 @@
         </div>
       </div>
     </header>
-    <div class="page-wrap">
-      <div 
+    <!-- transition-group默认渲染出来是个span 如果想渲染成指定元素使用tag="xxx" -->
+    <transition-group tag="div" class="page-wrap" :name="transitionName">
+      <div
         v-for="(nav,index) in navList"
         :key="nav.page_id"
         v-show="index==curIndex"
         class="bodys">
         {{nav.name}}
       </div>
-    </div>
+    </transition-group>
   </div>
 </div>
 </template>
@@ -58,7 +59,8 @@ export default{
       navList: null,
       slidesPerView: 6,
       curIndex: 0, // 默认nav的焦点下标
-      homeSwiper: null
+      homeSwiper: null,
+      transitionName: ''// 第一次应该没有动画
     }
   },
   beforeCreate () {
@@ -99,6 +101,7 @@ export default{
       })
     },
     changeIndex (index) {
+      this.transitionName = index > this.curIndex ? 'page-left' : 'page-right'
       this.curIndex = index
       let toIndex = 0
       if (index > this.slidesPerView / 2) {
@@ -225,6 +228,28 @@ export default{
   height: 800px;
   line-height: 800px;
   font-size: 72px;
+}
+
+.page-left-enter-active,
+.page-left-leave-active,
+.page-right-enter-active,
+.page-right-leave-active
+{
+  transition: all .5s;
+}
+.page-left-enter,
+.page-right-leave-to {
+  transform: translateX(100%);
+}
+.page-left-enter-to,
+.page-left-leave,
+.page-right-enter-to,
+.page-right-leave {
+  transform: translateX(0);
+}
+.page-left-leave-to ,
+.page-right-enter{
+  transform: translateX(-100%);
 }
 </style>
 <style>
