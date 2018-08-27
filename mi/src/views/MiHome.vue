@@ -82,6 +82,11 @@ export default{
   mounted () {
 
   },
+  // 把无用模块注销 释放内存
+  destroyed () {
+    this.homeSwiper.destroy()
+    NProgress.remove()
+  },
   methods: {
     getNavList () {
       this.$fetch('navList').then(res => {
