@@ -61,7 +61,7 @@ new Vue({
 },
 ```
 
-- 添加buggyfill
+- 添加buggyfill 兼容处理 在index.html里加入如下内容
 
 ```
 <script src="//g.alicdn.com/fdilab/lib3rd/viewport-units-buggyfill/0.6.2/??viewport-units-buggyfill.hacks.min.js,viewport-units-buggyfill.min.js"></script>
