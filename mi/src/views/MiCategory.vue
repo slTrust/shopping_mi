@@ -31,11 +31,11 @@
                   <img v-lazy="list.category_img" lazy="loaded">
                 </a>
               </div>
-              <template v-for="item in list.category_list">
-                <div class="category_title">
+              <template v-for="(item,index) in list.category_list">
+                <div :key="'title'+index" class="category_title">
                   <span>{{item.category_title}}</span>
                 </div>
-                <CategoryGroup :products="item.category_group"/>
+                <CategoryGroup :key="'group'+index" :products="item.category_group"/>
               </template>
             </div>
           </div>
