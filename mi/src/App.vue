@@ -50,14 +50,14 @@ export default{
   height: 100%;
   z-index: 1;
 }
-.app-view-wrapper {
+/* .app-view-wrapper {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
   max-width: 375px;
   margin: 0 auto;
-}
+} */
 .app-view {
   position: absolute;
   /* z-index: 999; */

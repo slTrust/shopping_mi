@@ -1,6 +1,6 @@
 <template>
   <div class="app-shell">
-    <MiSearch/>
+    <MiSearch title="分类"/>
     <div class="app-view-wrapper">
       <div class="container app-view app-view-with-header app-view-with-footer">
         <div class="list-navbar">
