@@ -25,6 +25,11 @@ export default{
   watch: {
     // 监听路由信息的变化
     '$route' (to, from) {
+      // 解决停在当前页面刷新时 不需要过渡的问题
+      if (!from.meta.index) {
+        this.transitionName = ''
+        return
+      }
       this.transitionName = to.meta.index > from.meta.index ? 'page-left' : 'page-right'
     }
   }
