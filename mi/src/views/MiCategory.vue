@@ -28,7 +28,7 @@
             <div class="component-list-main">
               <div class="cells_auto_fill">
                 <a class="exposure items">
-                  <img :src="list.category_img" lazy="loaded">
+                  <img v-lazy="list.category_img" lazy="loaded">
                 </a>
               </div>
               <template v-for="item in list.category_list">
@@ -173,6 +173,7 @@ export default{
 .cells_auto_fill .items img{
   width: 260px;
   height: 104px;
+  background: #f2f2f2;
 }
 .component-list-main .category_title {
   background: #fff;
