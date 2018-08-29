@@ -18,7 +18,7 @@
             </li>
           </ul>
         </div>
-        <div class="list-wrap">
+        <div class="list-wrap" @touchstart="wrapScroll">
           <div
             v-for="(list,index) in categoryList"
             :key="list.category_id"
@@ -59,7 +59,8 @@ export default{
       curIndex: 0,
       categoryList: null,
       loading: true,
-      offsetTop: [] // 左侧nav对应右侧内容时的位置
+      offsetTop: [], // 左侧nav对应右侧内容时的位置
+      scrollTimer: null
     }
   },
   created () {
@@ -81,8 +82,31 @@ export default{
       })
     },
     changeIndex (index) {
+      document.querySelector('.list-wrap').removeEventListener('scroll', this.scrollHandler)
       this.curIndex = index
       document.querySelector('.list-wrap').scrollTo(0, this.offsetTop[index])
+    },
+    wrapScroll () {
+      // 移动右边内容区域  的时候有滚动事件，但是你不知道它什么时候结束
+      // 高级技巧 通过一个延时器监听 进入就清除定时器，然后重新生成定时器
+      document.querySelector('.list-wrap').addEventListener('scroll', this.scrollHandler)
+    },
+    scrollHandler () {
+      clearTimeout(this.scrollTimer)
+      this.scrollTimer = null
+      this.scrollTimer = setTimeout(() => {
+        let scrollTop = document.querySelector('.list-wrap').scrollTop
+        let len = this.offsetTop.length
+        for (let i = 0; i < len; i++) {
+          if (scrollTop >= this.offsetTop[i] && scrollTop < this.offsetTop[i + 1]) {
+            this.curIndex = i
+            console.log(this.curIndex)
+            break
+          }
+        }
+        // 为什么用touchstart 因为你是否记得在 点击左侧的时候有调用 scrollTo会触发滚轮事件
+        // 这样 左右会相互作用，所以避免这种情况  用两个事件
+      }, 100)
     }
   }
 }
