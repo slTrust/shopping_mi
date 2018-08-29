@@ -4,7 +4,8 @@ const url = {
   getCode: '/api/getCode',
   login: '/api/login',
   navList: '/api/navList',
-  homePage: '/api/homePage'
+  homePage: '/api/homePage',
+  category: '/api/category'
 }
 
 Object.keys(url).forEach(key => {

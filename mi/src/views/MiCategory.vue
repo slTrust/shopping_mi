@@ -4,101 +4,14 @@
       <div class="container app-view app-view-with-header app-view-with-footer">
         <div class="list-navbar">
           <ul>
-            <li class="active">
+            <!-- 先渲染左侧nav标签 -->
+            <li
+              v-for="(list,index) in categoryList"
+              @click="changeIndex(index)"
+              :key="list.category_id"
+              :class="index==curIndex?'active':''">
               <a>
-                <span>新品</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
-              </a>
-            </li><li>
-              <a>
-                <span>手机</span>
-              </a>
-            </li>
-            <li>
-              <a>
-                <span>电视</span>
+                <span>{{list.category_name}}</span>
               </a>
             </li>
           </ul>
@@ -251,7 +164,30 @@
     </div>
   </div>
 </template>
-
+<script>
+export default{
+  data () {
+    return {
+      curIndex: 0,
+      categoryList: null
+    }
+  },
+  created () {
+    this.getLists()
+  },
+  methods: {
+    getLists () {
+      this.$fetch('category').then(res => {
+        console.log(res)
+        this.categoryList = res.data.lists
+      })
+    },
+    changeIndex (index) {
+      this.curIndex = index
+    }
+  }
+}
+</script>
 <style scoped>
 .container {
   margin-right: auto;
