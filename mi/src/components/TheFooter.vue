@@ -12,10 +12,10 @@
         <span>{{nav.name}}</span>
       </a> -->
       <router-link
-        v-for="(nav,index) in navigation"
+        v-for="nav in navigation"
         :key="nav.icon"
         class="flex"
-        :class="index==curIndex?'on':''"
+        :class="nav.link==$route.name?'on':''"
         :to="nav.link"
         >
         <!-- 不在需要@click时触发标记当前焦点了  因为是router-link了 -->
@@ -48,12 +48,17 @@ const navigation = [
     link: 'user'
   }
 ]
+/*
+在每次路由跳转的时候能获取 $route这个路由对象  能获取当前路由信息
+*/
 export default {
   data () {
     return {
-      curIndex: 0,
       navigation
     }
+  },
+  updated () {
+    console.log(this.$route)
   }
 }
 </script>

@@ -8,6 +8,10 @@ import MiUser from './MiUser.vue'
 
 export default [
   {
+    path: '/',
+    redirect: 'home'
+  },
+  {
     path: '/login',
     name: 'login',
     component: MiLogin
