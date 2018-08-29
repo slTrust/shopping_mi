@@ -132,21 +132,6 @@ export default{
 </script>
 
 <style scoped>
-.app-view {
-  position: absolute;
-  /* z-index: 990; */
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* height: 100%; */
-  overflow-x: hidden;
-  overflow-y: auto;
-  will-change: transform;
-  background: #fff;
-  color: #3c3c3c;
-  padding-bottom: 52px;
-}
 .header {
   position: fixed;
   top: -1px;
@@ -155,22 +140,6 @@ export default{
   z-index: 99;
   box-shadow: 0 2px 4px -1px rgba(0,0,0,.2);
   background: #f2f2f2;
-}
-.app-header-wrapper>div, .app-header-wrapper {
-  display: flex;
-  align-items: center;
-}
-.app-header-wrapper {
-  justify-content: space-between;
-  height: 50px;
-  background: #f2f2f2;
-  color: #666;
-  padding: 0;
-}
-.app-header-item {
-  display: block;
-  width: 32px;
-  margin: 0 10px;
 }
 .app-header-item img {
   width: 80%;

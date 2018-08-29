@@ -1,5 +1,6 @@
 <template>
   <div class="app-shell">
+    <MiSearch/>
     <div class="app-view-wrapper">
       <div class="container app-view app-view-with-header app-view-with-footer">
         <div class="list-navbar">
@@ -42,9 +43,12 @@
   </div>
 </template>
 <script>
+// 顶部搜索组件
+import MiSearch from '../components/MiSearch.vue'
 import CategoryGroup from '../components/CategoryGroup.vue'
 export default{
   components: {
+    MiSearch,
     CategoryGroup
   },
   data () {
