@@ -1,26 +1,47 @@
 <template>
   <footer class="app-bottom-navigator-wrapper app-shell-footer">
     <div class="fill-height box-flex align-center">
-      <a class="flex on">
-        <i class="iconfont icon-homefill"></i>
-        <span>首页</span>
-      </a>
-      <a class="flex">
-        <i class="iconfont icon-goods"></i>
-        <span>分类</span>
-      </a>
-      <a class="flex">
-        <i class="iconfont icon-cart"></i>
-        <span>购物车</span>
-      </a>
-      <a class="flex">
-        <i class="iconfont icon-people"></i>
-        <span>我的</span>
+      <a
+        v-for="(nav,index) in navigation"
+        :key="nav.icon"
+        class="flex"
+        :class="index==curIndex?'on':''"
+        @click="curIndex = index"
+        >
+        <i class="iconfont" :class="nav.icon"></i>
+        <span>{{nav.name}}</span>
       </a>
     </div>
   </footer>
 </template>
-
+<script>
+const navigation = [
+  {
+    name: '首页',
+    icon: 'icon-shouye'
+  },
+  {
+    name: '分类',
+    icon: 'icon-fenlei'
+  },
+  {
+    name: '购物车',
+    icon: 'icon-gouwuche'
+  },
+  {
+    name: '我的',
+    icon: 'icon-iconfuzhi'
+  }
+]
+export default {
+  data () {
+    return {
+      curIndex: 0,
+      navigation
+    }
+  }
+}
+</script>
 <style scoped>
 .app-shell-footer {
   position: fixed;
