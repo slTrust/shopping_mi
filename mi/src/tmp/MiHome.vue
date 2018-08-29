@@ -62,7 +62,7 @@
 <style scoped>
 .app-view {
   position: absolute;
-  z-index: 999;
+  /* z-index: 999; */
   top: 0;
   right: 0;
   bottom: 0;

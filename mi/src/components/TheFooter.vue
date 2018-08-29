@@ -1,7 +1,7 @@
 <template>
   <footer class="app-bottom-navigator-wrapper app-shell-footer">
     <div class="fill-height box-flex align-center">
-      <a
+      <!-- <a
         v-for="(nav,index) in navigation"
         :key="nav.icon"
         class="flex"
@@ -10,7 +10,18 @@
         >
         <i class="iconfont" :class="nav.icon"></i>
         <span>{{nav.name}}</span>
-      </a>
+      </a> -->
+      <router-link
+        v-for="(nav,index) in navigation"
+        :key="nav.icon"
+        class="flex"
+        :class="index==curIndex?'on':''"
+        :to="nav.link"
+        >
+        <!-- 不在需要@click时触发标记当前焦点了  因为是router-link了 -->
+        <i class="iconfont" :class="nav.icon"></i>
+        <span>{{nav.name}}</span>
+      </router-link>
     </div>
   </footer>
 </template>
@@ -18,19 +29,23 @@
 const navigation = [
   {
     name: '首页',
-    icon: 'icon-shouye'
+    icon: 'icon-shouye',
+    link: 'home'
   },
   {
     name: '分类',
-    icon: 'icon-fenlei'
+    icon: 'icon-fenlei',
+    link: 'category'
   },
   {
     name: '购物车',
-    icon: 'icon-gouwuche'
+    icon: 'icon-gouwuche',
+    link: 'cart'
   },
   {
     name: '我的',
-    icon: 'icon-iconfuzhi'
+    icon: 'icon-iconfuzhi',
+    link: 'user'
   }
 ]
 export default {
