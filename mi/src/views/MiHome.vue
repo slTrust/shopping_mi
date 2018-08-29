@@ -235,28 +235,6 @@ export default{
   line-height: 800px;
   font-size: 72px;
 }
-
-.page-left-enter-active,
-.page-left-leave-active,
-.page-right-enter-active,
-.page-right-leave-active
-{
-  transition: all .5s;
-}
-.page-left-enter,
-.page-right-leave-to {
-  transform: translateX(100%);
-}
-.page-left-enter-to,
-.page-left-leave,
-.page-right-enter-to,
-.page-right-leave {
-  transform: translateX(0);
-}
-.page-left-leave-to ,
-.page-right-enter{
-  transform: translateX(-100%);
-}
 </style>
 <style>
 #nprogress .bar{
