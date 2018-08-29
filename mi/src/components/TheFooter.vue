@@ -1,6 +1,6 @@
 <template>
   <footer class="app-bottom-navigator-wrapper app-shell-footer">
-    <div class="fill-height box-flex align-center">
+    <div v-if="!loading" class="fill-height box-flex align-center">
       <!-- <a
         v-for="(nav,index) in navigation"
         :key="nav.icon"
@@ -26,6 +26,8 @@
   </footer>
 </template>
 <script>
+import bus from '../bus.js'
+
 const navigation = [
   {
     name: '首页',
@@ -54,11 +56,14 @@ const navigation = [
 export default {
   data () {
     return {
-      navigation
+      navigation,
+      loading: true
     }
   },
-  updated () {
-    console.log(this.$route)
+  created () {
+    bus.$on('loading', (val) => {
+      this.loading = val
+    })
   }
 }
 </script>

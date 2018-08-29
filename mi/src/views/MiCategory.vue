@@ -47,6 +47,7 @@
 // 顶部搜索组件
 import MiSearch from '../components/MiSearch.vue'
 import CategoryGroup from '../components/CategoryGroup.vue'
+import bus from '../bus.js'
 export default{
   components: {
     MiSearch,
@@ -65,8 +66,10 @@ export default{
   methods: {
     getLists () {
       this.$fetch('category').then(res => {
-        console.log(res)
         this.categoryList = res.data.lists
+        // 改变loading状态
+        this.loading = false
+        bus.$emit('loading', false)
       })
     },
     changeIndex (index) {
