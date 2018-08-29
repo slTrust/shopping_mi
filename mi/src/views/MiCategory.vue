@@ -1,7 +1,8 @@
 <template>
   <div class="app-shell">
-    <MiSearch title="分类"/>
-    <div class="app-view-wrapper">
+    <MiSearch title="分类" :loading="loading"/>
+    <img v-if="loading" src="../assets/images/loading.png" class="loading_img">
+    <div v-else class="app-view-wrapper">
       <div class="container app-view app-view-with-header app-view-with-footer">
         <div class="list-navbar">
           <ul>
@@ -54,7 +55,8 @@ export default{
   data () {
     return {
       curIndex: 0,
-      categoryList: null
+      categoryList: null,
+      loading: true
     }
   },
   created () {
@@ -172,6 +174,10 @@ export default{
   display: block;
   position: relative;
   overflow: hidden;
+}
+
+.loading_img{
+  width:100%;
 }
 
 </style>
