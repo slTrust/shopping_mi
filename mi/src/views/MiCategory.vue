@@ -23,6 +23,7 @@
             v-for="(list,index) in categoryList"
             :key="list.category_id"
             :class="'category'+index"
+            :ref="'category'+index"
             class="list-item">
             <div class="component-list-main">
               <div class="cells_auto_fill">
@@ -57,7 +58,8 @@ export default{
     return {
       curIndex: 0,
       categoryList: null,
-      loading: true
+      loading: true,
+      offsetTop: [] // 左侧nav对应右侧内容时的位置
     }
   },
   created () {
@@ -70,10 +72,17 @@ export default{
         // 改变loading状态
         this.loading = false
         bus.$emit('loading', false)
+        // 获取dom结构要通过nextTick
+        this.$nextTick(() => {
+          this.categoryList.forEach((item, index) => {
+            this.offsetTop.push(this.$refs['category' + index][0].offsetTop)
+          })
+        })
       })
     },
     changeIndex (index) {
       this.curIndex = index
+      document.querySelector('.list-wrap').scrollTo(0, this.offsetTop[index])
     }
   }
 }
